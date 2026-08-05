@@ -6,46 +6,81 @@ import Image from "next/image";
 import SR from "./ui/ScrollReveal";
 
 const features = [
-  { label: "Match Prediction Polls", detail: "Auto-generated from live squad data" },
-  { label: "Confidence Scoring", detail: "Stake points on prediction certainty" },
-  { label: "Streak Systems", detail: "Bonus multipliers for consecutive accuracy" },
-  { label: "Leaderboard Rankings", detail: "Real-time scoring with position tracking" },
-  { label: "Reward Boosts", detail: "Strategic power-ups from roulette system" },
-  { label: "Roulette Engine", detail: "Gamified spin mechanics with inventory" },
-  { label: "Analytics Dashboard", detail: "Performance metrics and match insights" },
-  { label: "Share Cards", detail: "Generated result cards for social sharing" },
-  { label: "Live Countdowns", detail: "Poll deadlines synced to match schedules" },
-  { label: "Admin Controls", detail: "Full scoring, poll, and user management" },
-  { label: "Match Standings", detail: "Real-time score breakdowns per match" },
-  { label: "Session Auth", detail: "Secure user sessions and role management" },
+  { label: "Path Score", detail: "Single 0-100 readiness score across 5 weighted factors" },
+  { label: "Resume Analyzer", detail: "ATS and structure scoring with red-flag detection" },
+  { label: "Skill Gap Analysis", detail: "Compares current profile against target role requirements" },
+  { label: "Growth Roadmap", detail: "Personalized weekly tasks generated for measurable progress" },
+  { label: "Live Jobs", detail: "Market listings with cache-backed fetch and opportunity tracking" },
+  { label: "Interview Coach", detail: "AI mock interviews with answer-level feedback" },
+  { label: "AI Coach Chat", detail: "Gemini-backed mentoring and career guidance" },
+  { label: "Resume Builder", detail: "In-app resume editor with PDF and DOCX export" },
+  { label: "Reports", detail: "Progress snapshots for student career readiness" },
+  { label: "Onboarding Engine", detail: "Role, skills, and semester-aware personalization" },
+  { label: "Notifications", detail: "Scheduled nudges and job alerts via cron jobs" },
+  { label: "Multi-Service Security", detail: "Internal-key-gated AI microservice architecture" },
 ];
 
-/* Curated screenshots — 4 hero shots only */
+/* Product journey screenshots */
 const heroShots = [
-  { src: "/projects/crictalx/Dashboard_1.png", label: "Dashboard — main prediction interface" },
-  { src: "/projects/crictalx/Dashboard_2.png", label: "Roulette Engine — gamified reward mechanics" },
-  { src: "/projects/crictalx/Standings_and_pointstable.png", label: "Standings — real-time leaderboard state" },
-  { src: "/projects/crictalx/User_profile_1.png", label: "Profile — performance analytics per user" },
+  {
+    src: "/projects/pathpilot/landing-page.png",
+    label: "Landing",
+    why: "Establishes value proposition and drives onboarding action.",
+  },
+  {
+    src: "/projects/pathpilot/dashboard.png",
+    label: "Dashboard",
+    why: "Surfaces Path Score, behavior signals, and immediate next actions.",
+  },
+  {
+    src: "/projects/pathpilot/resume-analyzer.png",
+    label: "Resume Analyzer",
+    why: "Converts uploaded resumes into ATS and structure-level feedback.",
+  },
+  {
+    src: "/projects/pathpilot/skill-roadmap.png",
+    label: "Skill Roadmap",
+    why: "Transforms weak areas into weekly, measurable improvement tasks.",
+  },
+  {
+    src: "/projects/pathpilot/live-jobs.png",
+    label: "Live Jobs",
+    why: "Connects preparation with actual job opportunities and tracking.",
+  },
+  {
+    src: "/projects/pathpilot/ai-interview-coach.png",
+    label: "AI Interview Coach",
+    why: "Simulates interview practice loops with contextual feedback.",
+  },
+  {
+    src: "/projects/pathpilot/resume-builder.png",
+    label: "Resume Builder",
+    why: "Lets students ship application-ready resumes from inside the product.",
+  },
+  {
+    src: "/projects/pathpilot/public-profile.png",
+    label: "Public Profile",
+    why: "Creates a shareable credibility layer for student growth visibility.",
+  },
 ];
 
 /* Deploy timeline milestones */
 const timeline = [
-  { version: "v0.1", date: "Feb 2024", title: "Manual polls", desc: "WhatsApp group, manual scoring, spreadsheet leaderboard.", lesson: "The problem was real — 6 friends used it daily." },
-  { version: "v1.0", date: "Mar 2024", title: "Automated generation", desc: "Flask app with auto-generated polls from squad data. First 20 users.", lesson: "Nobody read the instructions. Redesigned for zero-explanation UX." },
-  { version: "v1.3", date: "May 2024", title: "Confidence scoring", desc: "Stake points on certainty. Streak bonuses. Daily return rate jumped.", lesson: "Real stakes > decorative gamification." },
-  { version: "v2.0", date: "Jan 2025", title: "Full platform", desc: "Roulette, analytics, share cards, admin panel. 2,000+ votes.", lesson: "Architecture rewrites are inevitable. Start messy, refactor with understanding." },
-  { version: "v2.4", date: "Current", title: "Live production", desc: "2,847 votes. Confidence system, reward boosts, leaderboard rankings.", lesson: "Still shipping. Still learning from user behavior." },
+  { version: "v0.1", date: "Jan 2026", title: "Problem framing", desc: "Defined student career-readiness gaps and outlined a single-score product experience.", lesson: "A strong UX problem statement makes technical complexity worth it." },
+  { version: "v0.4", date: "Mar 2026", title: "Core web platform", desc: "Built React + Node app with auth, onboarding, resume upload, and dashboard skeleton.", lesson: "Stable API contracts early reduced frontend churn later." },
+  { version: "v0.7", date: "May 2026", title: "AI + ML integration", desc: "Added Django microservice, readiness prediction pipeline, and explainability via SHAP.", lesson: "Separating AI inference from app logic made iteration much faster." },
+  { version: "v1.0", date: "Aug 2026", title: "Capstone release", desc: "Shipped complete multi-service build with Path Score, roadmap, jobs, interview coach, and resume builder.", lesson: "Production-grade architecture matters even in student products." },
 ];
 
 /* Engineering decisions */
 const decisions = [
   {
-    question: "Why Flask over Django?",
-    answer: "Needed minimal overhead for rapid iteration. Django's ORM was overkill for SQLite + manual query patterns I was already comfortable with.",
+    question: "Why split into React + Node + Django?",
+    answer: "Node handles auth, CRUD, files, and app orchestration while Django hosts ML inference where Python libraries are strongest. This separation keeps boundaries clear and deployments independent.",
   },
   {
-    question: "Why SQLite in production?",
-    answer: "At 50 concurrent users, SQLite handles the load. WAL mode + connection pooling. Will migrate to Postgres when it actually becomes a bottleneck, not before.",
+    question: "Why both ML models and Gemini?",
+    answer: "ML models produce structured numeric predictions for reliability, while Gemini explains those outputs and provides actionable guidance. Deterministic scoring first, narrative intelligence second.",
   },
 ];
 
@@ -105,11 +140,11 @@ export default function CrictalxShowcase() {
           <SR delay={0.05}>
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
               <div>
-                <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.035em] text-white leading-[1]">Crictalx Polls</h2>
-                <p className="text-[13px] font-mono text-text-secondary mt-2">Fantasy Cricket Prediction & Gamification Platform</p>
+                <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.035em] text-white leading-[1]">PathPilot AI</h2>
+                <p className="text-[13px] font-mono text-text-secondary mt-2">Career Readiness Intelligence Platform</p>
               </div>
-              <a href="https://crictalx.kreesh.me" target="_blank" rel="noopener noreferrer"
-                className="text-[12px] font-mono text-accent hover:text-accent/80 transition-colors self-start md:self-auto">crictalx.kreesh.me →</a>
+              <a href="https://pathpilot.kreesh.me" target="_blank" rel="noopener noreferrer"
+                className="text-[12px] font-mono text-accent hover:text-accent/80 transition-colors self-start md:self-auto">pathpilot.kreesh.me →</a>
             </div>
           </SR>
 
@@ -117,10 +152,9 @@ export default function CrictalxShowcase() {
           <SR delay={0.08}>
             <div className="flex flex-wrap gap-6 mb-10 pb-6 border-b border-border">
               {[
-                { label: "Total Votes", value: "2,847" },
-                { label: "Seasons Tracked", value: "4" },
-                { label: "Features Shipped", value: "12" },
-                { label: "Architecture Rewrites", value: "3" },
+                { label: "Commits", value: "120+" },
+                { label: "Build", value: "30+ days" },
+                { label: "Architecture", value: "3 services" },
               ].map(m => (
                 <div key={m.label}>
                   <div className="text-[10px] font-mono text-text-muted uppercase tracking-wider">{m.label}</div>
@@ -130,21 +164,43 @@ export default function CrictalxShowcase() {
             </div>
           </SR>
 
-          {/* Origin story — concise */}
+          {/* Case study narrative */}
           <SR delay={0.1}>
-            <div className="max-w-2xl mb-12">
-              <p className="text-[14px] text-text-secondary leading-[1.75] mb-3">
-                Started as a friend group manually creating prediction polls every IPL match day. Highest scorer, top wicket taker, match winner. Every single day, manually.
+            <div className="max-w-3xl mb-10">
+              <p className="text-[13px] text-text-secondary leading-[1.8]">
+                PathPilot AI unifies resume quality, role readiness, interview practice, and live opportunity tracking into one student workflow.
+                The hard part was making multi-service AI feel simple and trustworthy in daily use, not just technically impressive.
+                I shipped it through steady iteration over 120+ commits, balancing architecture discipline with product clarity.
               </p>
-              <p className="text-[14px] text-text-secondary leading-[1.75]">
-                The repetition was painful. So I automated it. Then kept building — confidence scoring, streak bonuses, reward boosts, analytics. What started as a group chat solution became a full gamification platform with <span className="text-text font-medium">2,847 votes</span> and active daily usage.
-              </p>
+            </div>
+          </SR>
+
+          <SR delay={0.115}>
+            <div className="panel p-4 md:p-5 mb-10 max-w-3xl">
+              <div className="text-[10px] font-mono text-text-muted uppercase tracking-wider mb-3">Architecture Snapshot</div>
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr_auto_1fr] gap-2 items-center mb-2">
+                <div className="panel-inner p-3">
+                  <div className="text-[11px] font-mono text-text">Browser</div>
+                  <div className="text-[10px] text-text-secondary mt-1">React SPA</div>
+                </div>
+                <div className="text-[11px] font-mono text-text-muted text-center">-&gt;</div>
+                <div className="panel-inner p-3">
+                  <div className="text-[11px] font-mono text-text">Node API</div>
+                  <div className="text-[10px] text-text-secondary mt-1">Auth + Orchestration</div>
+                </div>
+                <div className="text-[11px] font-mono text-text-muted text-center">-&gt;</div>
+                <div className="panel-inner p-3">
+                  <div className="text-[11px] font-mono text-text">Django ML</div>
+                  <div className="text-[10px] text-text-secondary mt-1">7 model inference + SHAP</div>
+                </div>
+              </div>
+              <p className="text-[11px] text-text-muted">MongoDB for persistence, Gemini for coaching, internal key gate between Node and Django.</p>
             </div>
           </SR>
 
           {/* ── Curated product screens ── */}
           <SR delay={0.12}>
-            <h3 className="text-[11px] font-mono text-text-muted uppercase tracking-wider mb-4">Product Screens</h3>
+            <h3 className="text-[11px] font-mono text-text-muted uppercase tracking-wider mb-4">Product Journey</h3>
 
             {/* Large hero shot */}
             <motion.div
@@ -159,13 +215,13 @@ export default function CrictalxShowcase() {
                 <Image src={heroShots[0].src} alt={heroShots[0].label} fill className="object-contain group-hover:scale-[1.01] transition-transform duration-500" sizes="100vw" />
               </div>
               <div className="px-3 py-2 flex items-center justify-between border-t border-border">
-                <span className="text-[11px] font-mono text-text-secondary">{heroShots[0].label}</span>
+                <span className="text-[11px] font-mono text-text-secondary">01. {heroShots[0].label} - {heroShots[0].why}</span>
                 <span className="text-[9px] font-mono text-text-muted opacity-0 group-hover:opacity-100 transition-opacity">click to expand →</span>
               </div>
             </motion.div>
 
-            {/* Supporting shots — 3 column */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-12">
+            {/* Supporting shots */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-12">
               {heroShots.slice(1).map((s, i) => (
                 <motion.div
                   key={s.src}
@@ -179,9 +235,9 @@ export default function CrictalxShowcase() {
                   <div className="relative aspect-[16/10] overflow-hidden bg-bg-panel">
                     <Image src={s.src} alt={s.label} fill className="object-contain group-hover:scale-[1.02] transition-transform duration-500" sizes="33vw" />
                   </div>
-                  <div className="px-3 py-2 flex items-center justify-between border-t border-border">
-                    <span className="text-[10px] font-mono text-text-secondary">{s.label}</span>
-                    <span className="text-[9px] font-mono text-text-muted opacity-0 group-hover:opacity-100 transition-opacity">expand →</span>
+                  <div className="px-3 py-2 border-t border-border">
+                    <div className="text-[10px] font-mono text-text-secondary mb-0.5">{String(i + 2).padStart(2, "0")}. {s.label}</div>
+                    <div className="text-[10px] text-text-muted leading-[1.5]">{s.why}</div>
                   </div>
                 </motion.div>
               ))}
@@ -289,7 +345,7 @@ export default function CrictalxShowcase() {
           </div>
           <SR delay={0.1}>
             <div className="flex flex-wrap gap-2">
-              {["Flask", "SQLite", "REST APIs", "Session Auth", "Dynamic Generation", "Jinja2"].map((t) => (
+              {["React", "Vite", "Node", "Express", "MongoDB", "Django", "Gemini", "SHAP"].map((t) => (
                 <span key={t} className="px-2.5 py-1 text-[11px] font-mono text-text-muted border border-border rounded">{t}</span>
               ))}
             </div>

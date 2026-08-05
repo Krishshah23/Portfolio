@@ -26,14 +26,14 @@ function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
 
 /* ── Deploy log entries ── */
 const deployLog = [
-  { time: "2m ago", text: "Poll auto-generated from RCB squad", tag: "crictalx" },
-  { time: "14m ago", text: "Leaderboard rankings recalculated", tag: "crictalx" },
-  { time: "1h ago", text: "Confidence scoring deployed to prod", tag: "crictalx" },
-  { time: "3h ago", text: "Quiz battle matchmaking optimized", tag: "brainbrew" },
-  { time: "5h ago", text: "Reward boost roulette v2 shipped", tag: "crictalx" },
-  { time: "8h ago", text: "XP progression curve rebalanced", tag: "brainbrew" },
-  { time: "12h ago", text: "Share card generator refactored", tag: "crictalx" },
-  { time: "1d ago", text: "Analytics dashboard v2 released", tag: "crictalx" },
+  { time: "2m ago", text: "Path Score recompute pipeline stabilized", tag: "pathpilot" },
+  { time: "14m ago", text: "Roadmap task weight tuning deployed", tag: "pathpilot" },
+  { time: "1h ago", text: "Resume analyzer score parser refined", tag: "pathpilot" },
+  { time: "3h ago", text: "Live jobs cache refresh optimized", tag: "pathpilot" },
+  { time: "5h ago", text: "Interview coach prompt templates updated", tag: "pathpilot" },
+  { time: "8h ago", text: "Token refresh edge-case patched", tag: "pathpilot" },
+  { time: "12h ago", text: "Dashboard activity feed corrected", tag: "pathpilot" },
+  { time: "1d ago", text: "Public profile share view shipped", tag: "pathpilot" },
 ];
 
 /* ── Typewriter hook ── */
@@ -87,9 +87,9 @@ function useTypewriter(lines: typeof deployLog, visible: boolean) {
 
 /* ── System status ── */
 const systems = [
+  { name: "pathpilot.kreesh.me", status: "live" as const, version: "v1.0", uptime: "5d", href: "https://pathpilot.kreesh.me" },
   { name: "crictalx.kreesh.me", status: "live" as const, version: "v2.4", uptime: "47d", href: "https://crictalx.kreesh.me" },
   { name: "brainbrew.kreesh.me", status: "live" as const, version: "v1.2", uptime: "23d", href: "https://brainbrew.kreesh.me" },
-  { name: "wanderlux.kreesh.me", status: "deployed" as const, version: "v1.0", uptime: "—", href: "https://wanderlux.kreesh.me" },
   { name: "spicegarden.kreesh.me", status: "deployed" as const, version: "v1.0", uptime: "—", href: "https://spicegarden.kreesh.me" },
 ];
 
@@ -103,7 +103,7 @@ export default function Hero() {
   const inView = useInView(sectionRef, { once: true });
   const { displayed, isComplete } = useTypewriter(deployLog, inView);
   const [terminalText, setTerminalText] = useState("");
-  const terminalFull = "currently shipping crictalx v2.4";
+  const terminalFull = "currently shipping pathpilot v1.0";
 
   // Terminal prompt typewriter at bottom
   useEffect(() => {
@@ -136,7 +136,7 @@ export default function Hero() {
   return (
     <section ref={sectionRef} className="min-h-screen relative dot-grid flex flex-col">
       {/* Subtle vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,#050508_100%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_42%,var(--color-bg)_100%)] pointer-events-none" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-5 md:px-8 w-full flex-1 flex flex-col justify-center pt-16 pb-8">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-12 lg:gap-16 items-start">
@@ -172,9 +172,18 @@ export default function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.55 }}
-              className="text-[14px] text-text-secondary font-mono mb-6"
+              className="text-[14px] text-text-secondary font-mono mb-3"
             >
               Product Engineer · Systems Builder
+            </motion.p>
+
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.6 }}
+              className="text-[11px] font-mono text-text-muted mb-6"
+            >
+              PathPilot AI · 120+ commits · 30+ day build
             </motion.p>
 
             <motion.div
@@ -197,7 +206,7 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.8 }}
-              className="flex items-center gap-6"
+              className="flex flex-wrap items-center gap-4 sm:gap-6"
             >
               <a
                 href="#work"
@@ -210,6 +219,13 @@ export default function Hero() {
                 className="text-[12px] font-mono text-text-secondary hover:text-text transition-colors"
               >
                 open channel →
+              </a>
+              <a
+                href="/Krish_Shah_Resume.pdf"
+                download
+                className="px-2.5 py-1 text-[11px] font-mono text-text border border-border rounded hover:border-border-hover hover:bg-bg-elevated transition-colors"
+              >
+                download resume
               </a>
             </motion.div>
           </div>

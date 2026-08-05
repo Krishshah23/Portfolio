@@ -2,15 +2,15 @@
 
 /* ── Base theme tokens (CSS custom properties) ── */
 :root {
-  --color-bg: #050508;
-  --color-bg-elevated: #0a0a0e;
-  --color-bg-panel: #0e0e13;
-  --color-bg-hover: #141419;
-  --color-border: rgba(255, 255, 255, 0.06);
-  --color-border-hover: rgba(255, 255, 255, 0.12);
-  --color-text: #d4d4d8;
-  --color-text-secondary: #71717a;
-  --color-text-muted: #3f3f46;
+  --color-bg: #0b1020;
+  --color-bg-elevated: #11182c;
+  --color-bg-panel: #161f37;
+  --color-bg-hover: #1c2642;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-hover: rgba(255, 255, 255, 0.2);
+  --color-text: #eef2ff;
+  --color-text-secondary: #c5cee4;
+  --color-text-muted: #8fa0c2;
   --color-accent: #3b82f6;
   --color-accent-dim: rgba(59, 130, 246, 0.12);
   --color-live: #22c55e;
@@ -20,15 +20,15 @@
 
 /* ── Terminal theme override ── */
 [data-theme="terminal"] {
-  --color-bg: #000000;
-  --color-bg-elevated: #060606;
-  --color-bg-panel: #0a0a0a;
-  --color-bg-hover: #111111;
-  --color-border: rgba(34, 197, 94, 0.08);
-  --color-border-hover: rgba(34, 197, 94, 0.18);
-  --color-text: #b8e6c8;
-  --color-text-secondary: #5a8a6a;
-  --color-text-muted: #2a4a35;
+  --color-bg: #07120d;
+  --color-bg-elevated: #0d1b15;
+  --color-bg-panel: #12231c;
+  --color-bg-hover: #183026;
+  --color-border: rgba(74, 222, 128, 0.2);
+  --color-border-hover: rgba(74, 222, 128, 0.35);
+  --color-text: #e8fff1;
+  --color-text-secondary: #b8dfc7;
+  --color-text-muted: #86b29a;
   --color-accent: #22c55e;
   --color-accent-dim: rgba(34, 197, 94, 0.1);
 }

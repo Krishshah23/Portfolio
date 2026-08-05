@@ -72,6 +72,13 @@ export default function Navbar() {
                 {l.label}
               </a>
             ))}
+            <a
+              href="/Krish_Shah_Resume.pdf"
+              download
+              className="ml-2 px-3 py-1.5 text-[11px] font-mono text-accent border border-accent/30 rounded hover:bg-accent-dim transition-colors"
+            >
+              download resume
+            </a>
             <span className="mx-2 h-3 w-px bg-border" />
             <LiveClock />
             <span className="mx-2 h-3 w-px bg-border" />
@@ -115,6 +122,17 @@ export default function Navbar() {
                 {l.label}
               </motion.a>
             ))}
+            <motion.a
+              href="/Krish_Shah_Resume.pdf"
+              download
+              onClick={() => setOpen(false)}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35 }}
+              className="mt-2 px-4 py-2 text-[12px] font-mono text-accent border border-accent/30 rounded"
+            >
+              download resume
+            </motion.a>
             <div className="mt-4">
               <LiveClock />
             </div>

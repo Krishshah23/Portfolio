@@ -37,14 +37,14 @@ const brainbrew = {
 /* ── Secondary projects with screenshots ── */
 const secondary = [
   {
-    name: "WanderLux",
-    desc: "Frontend craft exercise. Cinematic scroll transitions, immersive destination layouts, interactive trip calculator.",
-    tech: ["HTML", "CSS", "JavaScript"],
-    url: "https://wanderlux.kreesh.me",
+    name: "Crictalx",
+    desc: "Fantasy cricket prediction and engagement product featuring poll generation, scoring systems, leaderboards, and analytics loops.",
+    tech: ["Flask", "SQLite", "Gamification", "Analytics"],
+    url: "https://crictalx.kreesh.me",
     screenshots: [
-      { src: "/projects/wanderlux/Dashboard_!.png", label: "Homepage" },
-      { src: "/projects/wanderlux/Dashboard_2.png", label: "Explore" },
-      { src: "/projects/wanderlux/Destination_1.png", label: "Destinations" },
+      { src: "/projects/crictalx/Dashboard_1.png", label: "Dashboard" },
+      { src: "/projects/crictalx/Dashboard_2.png", label: "Prediction System" },
+      { src: "/projects/crictalx/Standings_and_pointstable.png", label: "Standings" },
     ],
   },
   {
@@ -175,10 +175,16 @@ export default function ProjectsSection() {
                   <div className="p-5 md:p-6">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
                       <h3 className="text-[15px] font-semibold text-white">{p.name}</h3>
-                      <a href={p.url} target="_blank" rel="noopener noreferrer"
-                        className="text-[10px] font-mono text-accent hover:text-accent/80 transition-colors">
-                        {p.url.replace("https://", "")} →
-                      </a>
+                      {p.url ? (
+                        <a href={p.url} target="_blank" rel="noopener noreferrer"
+                          className="text-[10px] font-mono text-accent hover:text-accent/80 transition-colors">
+                          {p.url.replace("https://", "")} →
+                        </a>
+                      ) : (
+                        <span className="text-[10px] font-mono text-text-muted">
+                          case study + screenshots incoming
+                        </span>
+                      )}
                     </div>
                     <p className="text-[12px] text-text-secondary leading-[1.6] mb-3">{p.desc}</p>
                     <div className="flex flex-wrap gap-1.5">
