@@ -18,7 +18,7 @@ const channels = [
 
 const currently = [
   { label: "Reading", value: "\"Designing Data-Intensive Applications\"" },
-  { label: "Building", value: "PathPilot AI — security hardening, testing, architecture cleanup" },
+  { label: "Building", value: "PathPilot AI (security hardening, testing, architecture cleanup)" },
   { label: "Exploring", value: "Data Structures & Algorithms" },
   { label: "Thinking", value: "Why streak mechanics create stronger retention than rewards" },
   { label: "Also", value: "Playing chess in whatever time is left over" },
@@ -125,7 +125,7 @@ export default function Signal() {
                   {status === "idle" && "Send message"}
                   {status === "sending" && "Sending…"}
                   {status === "sent" && "Message sent"}
-                  {status === "error" && "Error — try again"}
+                  {status === "error" && "Error, please try again"}
                 </button>
               </form>
 
@@ -137,7 +137,7 @@ export default function Signal() {
                     exit={{ opacity: 0 }}
                     className="mt-3 px-3 py-2 rounded-md bg-success-dim text-[13px] text-success"
                   >
-                    Message delivered — I&apos;ll get back to you soon.
+                    Message delivered. I&apos;ll get back to you soon.
                   </motion.div>
                 )}
                 {status === "error" && (

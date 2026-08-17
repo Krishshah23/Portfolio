@@ -58,8 +58,8 @@ export default function Hero() {
               <p className="text-[17px] text-text-secondary leading-[1.7]">
                 I&apos;m a third-year CS student, though most of what I actually know came from
                 building outside of class rather than in it. Over the past year and a half I&apos;ve
-                shipped several full products on my own — a fantasy cricket platform, a gamified
-                study app, and most recently an AI career-readiness tool — while freelancing for
+                shipped several full products on my own, including a fantasy cricket platform, a gamified
+                study app, and most recently an AI career-readiness tool, while freelancing for
                 other CS students who needed real software built. I like sitting with a few
                 problems long enough to actually understand them: mostly{" "}
                 <span className="text-text font-medium">how people use a product</span>, and{" "}

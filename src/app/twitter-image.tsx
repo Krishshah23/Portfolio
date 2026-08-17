@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Krish Shah — Computer Science Student & Freelance Developer";
+export const alt = "Krish Shah · Computer Science Student & Freelance Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -48,7 +48,7 @@ export default async function Image() {
               maxWidth: 820,
             }}
           >
-            Building real products — PathPilot AI, Crictalx, BrainBrew — and freelancing for CS students along the way.
+            Building real products like PathPilot AI, Crictalx, and BrainBrew, while freelancing for CS students along the way.
           </div>
         </div>
 

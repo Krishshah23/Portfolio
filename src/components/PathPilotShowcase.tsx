@@ -65,8 +65,8 @@ const timeline = [
   { version: "v0.4", date: "Mar 2026", title: "Core web platform", desc: "Built React + Node app with auth, onboarding, resume upload, and dashboard skeleton.", lesson: "Stable API contracts early reduced frontend churn later." },
   { version: "v0.7", date: "May 2026", title: "AI + ML integration", desc: "Added Django microservice, readiness prediction pipeline, and explainability via SHAP.", lesson: "Separating AI inference from app logic made iteration much faster." },
   { version: "v1.0", date: "Jul 31, 2026", title: "Capstone release", desc: "Shipped complete multi-service build with Path Score, roadmap, jobs, interview coach, and resume builder.", lesson: "Production-grade architecture matters even in student products." },
-  { version: "v2.0", date: "Aug 1–2, 2026", title: "UI renovation + storage migration", desc: "Redesigned core UI and migrated file storage from ephemeral disk to MongoDB GridFS — an architectural change, not just a visual refresh.", lesson: "Ephemeral disk storage works fine until a redeploy wipes it. Persistent storage should be the default, not the upgrade." },
-  { version: "v2.1", date: "Aug 17, 2026", title: "Security hardening", desc: "Added Helmet and rate limiting to the API layer, plus a 51-test Jest suite covering core service logic.", lesson: "Test coverage and hardening aren't a phase after launch — they're what makes launch trustworthy." },
+  { version: "v2.0", date: "Aug 2026", title: "UI renovation + storage migration", desc: "Redesigned core UI and migrated file storage from ephemeral disk to MongoDB GridFS, an architectural change rather than just a visual refresh.", lesson: "Ephemeral disk storage works fine until a redeploy wipes it. Persistent storage should be the default, not the upgrade." },
+  { version: "v2.1", date: "Aug 17, 2026", title: "Security hardening", desc: "Added Helmet and rate limiting to the API layer, plus a 51-test Jest suite covering core service logic.", lesson: "Test coverage and hardening aren't a phase after launch; they're what makes launch trustworthy." },
 ];
 
 /* Engineering decisions */
@@ -213,7 +213,7 @@ export default function PathPilotShowcase() {
                 <Image src={heroShots[0].src} alt={heroShots[0].label} fill className="object-contain group-hover:scale-[1.01] transition-transform duration-500" sizes="100vw" />
               </div>
               <div className="px-4 py-2.5 flex items-center justify-between border-t border-border">
-                <span className="text-[12px] text-text-secondary">01. {heroShots[0].label} — {heroShots[0].why}</span>
+                <span className="text-[12px] text-text-secondary">01. {heroShots[0].label}: {heroShots[0].why}</span>
                 <span className="text-[11px] text-text-muted opacity-0 group-hover:opacity-100 transition-opacity">Expand →</span>
               </div>
             </motion.div>

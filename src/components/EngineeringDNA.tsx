@@ -3,19 +3,19 @@
 import SR from "./ui/ScrollReveal";
 
 const patterns = [
-  "Real-time, stateful features over simple request-response — BrainBrew's live quiz battles needed this, not just a nice-to-have",
-  "Start small and let real usage dictate structure — Crictalx began as one Flask route with hardcoded polls before anything else got built",
-  "Split services along what they're actually good at, not convenience — PathPilot keeps Node for orchestration and Django for ML instead of forcing one stack to do both",
-  "Treat scoring and ranking logic as core infrastructure, not a feature bolted on later — it's the backbone of both Crictalx and BrainBrew",
-  "Watch behavior before redesigning around it — Crictalx's self-explanatory redesign came from seeing where people actually dropped off, not guessing",
+  "Real-time, stateful features over simple request-response: BrainBrew's live quiz battles needed this, not just as a nice-to-have",
+  "Start small and let real usage dictate structure: Crictalx began as one Flask route with hardcoded polls before anything else got built",
+  "Split services along what they're actually good at, not convenience: PathPilot keeps Node for orchestration and Django for ML instead of forcing one stack to do both",
+  "Treat scoring and ranking logic as core infrastructure, not a feature bolted on later: it's the backbone of both Crictalx and BrainBrew",
+  "Watch behavior before redesigning around it: Crictalx's self-explanatory redesign came from seeing where people actually dropped off, not guessing",
 ];
 
 const problems = [
-  "Compressing messy, multi-factor data into one number someone can act on — PathPilot's Path Score",
-  "Making a product people come back to the next day for reasons besides new features — Crictalx's streak mechanic",
-  "Keeping many users' state consistent in real time — BrainBrew's quiz battles",
-  "Turning a manual, ad-hoc process into something a system can just do — PathPilot's roadmap and job matching",
-  "Figuring out what actually drives engagement versus what just looks like it should — confidence scoring beat badges in BrainBrew",
+  "Compressing messy, multi-factor data into one actionable number: PathPilot's Path Score",
+  "Building habits that bring people back every day: Crictalx's streak mechanic",
+  "Keeping many users' state consistent in real time: BrainBrew's quiz battles",
+  "Turning a manual, ad-hoc process into something a system can automate: PathPilot's roadmap and job matching",
+  "Figuring out what actually drives engagement versus what just looks like it should: confidence scoring beat badges in BrainBrew",
 ];
 
 const workbench = [
@@ -28,13 +28,13 @@ const workbench = [
   {
     name: "DSA",
     status: "learning",
-    desc: "Data structures and algorithms — building problem-solving fluency",
+    desc: "Data structures and algorithms: building problem-solving fluency",
     progress: 25,
   },
   {
     name: "Exploring ML",
     status: "exploring",
-    desc: "Regression, classification, and model evaluation — building to understand",
+    desc: "Regression, classification, and model evaluation: building to understand",
     progress: 30,
   },
 ];
@@ -119,7 +119,7 @@ export default function EngineeringDNA() {
                   <div className="flex items-center justify-between mb-2">
                     <h4 className="text-[14px] font-semibold text-text">{item.name}</h4>
                     <span className={`text-[11px] uppercase tracking-wider ${statusStyle[item.status]}`}>
-                      {item.status} — {item.progress}%
+                      {item.status} · {item.progress}%
                     </span>
                   </div>
                   <p className="text-[13px] text-text-secondary leading-[1.6]">{item.desc}</p>

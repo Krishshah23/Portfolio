@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c140c"/>
+      <stop offset="100%" stop-color="#0e0a06"/>
+    </linearGradient>
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdba74"/>
+      <stop offset="45%" stop-color="#fb923c"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+    <linearGradient id="stemGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fdf8f0"/>
+      <stop offset="100%" stop-color="#d6c6b0"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background squircle -->
+  <rect width="64" height="64" rx="16" fill="url(#bg)" stroke="#3a2a19" stroke-width="1.5"/>
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+  <!-- Custom Krish / KS Architectonic Mark -->
+  <g filter="url(#glow)">
+    <!-- Vertical Spine -->
+    <path d="M18 16C18 14.3431 19.3431 13 21 13C22.6569 13 24 14.3431 24 16V48C24 49.6569 22.6569 51 21 51C19.3431 51 18 49.6569 18 48V16Z" fill="url(#stemGrad)"/>
+    
+    <!-- Top dynamic wing -->
+    <path d="M23 31.5L37.8 16.7C38.97 15.53 40.87 15.53 42.04 16.7C43.21 17.87 43.21 19.77 42.04 20.94L29.5 33.5L23 31.5Z" fill="url(#brandGrad)"/>
+    
+    <!-- Bottom dynamic wing extending into S contour -->
+    <path d="M28.5 32.5L42.04 46.04C43.21 47.21 43.21 49.11 42.04 50.28C40.87 51.45 38.97 51.45 37.8 50.28L23 35.5L28.5 32.5Z" fill="url(#brandGrad)"/>
+    
+    <!-- Krish signature accent beacon dot (kreesh.me) -->
+    <circle cx="45" cy="15" r="3.5" fill="#fb923c"/>
+  </g>
+</svg>

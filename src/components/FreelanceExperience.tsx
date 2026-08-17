@@ -29,7 +29,7 @@ export default function FreelanceExperience() {
                 Freelance Software Development
               </h2>
               <p className="text-[14px] text-text-secondary mt-2">
-                Self-employed · Remote · May 2025 — Present
+                Self-employed · Remote · May 2025 to Present
               </p>
             </div>
           </div>
@@ -51,7 +51,7 @@ export default function FreelanceExperience() {
           <div className="max-w-3xl mb-8">
             <p className="text-[16px] text-text-secondary leading-[1.75]">
               For the past year and a half, I&apos;ve been building software independently for
-              international Computer Science students — real projects with real deadlines,
+              international Computer Science students on real projects with real deadlines,
               not one-off gigs. It runs alongside my own products, not instead of them: the same
               habits that go into shipping PathPilot AI or Crictalx carry over here, just applied
               to someone else&apos;s problem instead of my own. Over 30 projects in, it&apos;s

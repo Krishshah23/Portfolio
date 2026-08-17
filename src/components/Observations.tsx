@@ -5,19 +5,19 @@ import SR from "./ui/ScrollReveal";
 const observations = [
   {
     title: "Interfaces should be self-explanatory",
-    body: "Early versions of Crictalx relied on written guides to explain each feature. Adoption stayed flat until I redesigned the flow so it needed no explanation — usage roughly tripled afterward.",
+    body: "Early versions of Crictalx relied on written guides to explain each feature. Adoption stayed flat until I redesigned the flow to be self-evident, which roughly tripled usage afterward.",
     tag: "user behavior",
     source: "crictalx v1.0, march 2026",
   },
   {
     title: "Engagement requires stakes, not just rewards",
-    body: "Adding XP and badges to BrainBrew had little effect on behavior. Introducing confidence scoring — where users stake points on their own certainty — measurably increased engagement. The incentive structure mattered more than the reward itself.",
+    body: "Adding XP and badges to BrainBrew had little effect on behavior. Introducing confidence scoring (where users stake points on their own certainty) measurably increased engagement. The incentive structure mattered more than the reward itself.",
     tag: "engagement",
     source: "brainbrew, april 2026",
   },
   {
     title: "Early feedback outweighs early polish",
-    body: "The first version of Crictalx was a single Flask route with hardcoded polls — functional, not refined. Friends used it daily regardless, and that usage taught me more than any amount of upfront planning would have.",
+    body: "The first version of Crictalx was a single Flask route with hardcoded polls. It was purely functional, not refined, yet friends used it daily, and that real usage taught me more than any upfront planning would have.",
     tag: "iteration",
     source: "crictalx v0.1, february 2026",
   },
@@ -78,7 +78,7 @@ export default function Observations() {
                 {heroObs.body}
               </p>
               <span className="text-[12px] text-text-muted">
-                — learned shipping {heroObs.source}
+                Learned while building {heroObs.source}
               </span>
             </div>
           </div>
@@ -101,7 +101,7 @@ export default function Observations() {
                   {o.title}
                 </h3>
                 <p className="text-[13px] text-text-secondary leading-[1.7] mb-3">{o.body}</p>
-                <span className="text-[11px] text-text-muted">— {o.source}</span>
+                <span className="text-[11px] text-text-muted">{o.source}</span>
               </div>
             </SR>
           ))}

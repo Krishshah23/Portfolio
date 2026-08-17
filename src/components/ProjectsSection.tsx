@@ -21,10 +21,10 @@ const brainbrew = {
     "260+ users in 48 hours. First time building real-time multiplayer state management. The matchmaking logic was rewritten three times.",
   tech: ["Flask", "SQLite", "Real-time State", "JSON APIs"],
   features: [
-    "Quiz Battles — real-time multiplayer with live scoring",
-    "XP Progression — leveling system tied to quiz performance",
-    "Adaptive Learning — difficulty scales based on accuracy patterns",
-    "Analytics — performance tracking across subjects and time",
+    "Quiz Battles: real-time multiplayer with live scoring",
+    "XP Progression: leveling system tied to quiz performance",
+    "Adaptive Learning: difficulty scales based on accuracy patterns",
+    "Analytics: performance tracking across subjects and time",
   ],
   screenshots: [
     { src: "/projects/brainbrew/dashboard.png", label: "Dashboard" },
