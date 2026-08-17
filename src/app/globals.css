@@ -1,36 +1,37 @@
 @import "tailwindcss";
 
-/* ── Base theme tokens (CSS custom properties) ── */
+/* ── Base theme tokens — warm, light-first ── */
 :root {
-  --color-bg: #0b1020;
-  --color-bg-elevated: #11182c;
-  --color-bg-panel: #161f37;
-  --color-bg-hover: #1c2642;
-  --color-border: rgba(255, 255, 255, 0.1);
-  --color-border-hover: rgba(255, 255, 255, 0.2);
-  --color-text: #eef2ff;
-  --color-text-secondary: #c5cee4;
-  --color-text-muted: #8fa0c2;
-  --color-accent: #3b82f6;
-  --color-accent-dim: rgba(59, 130, 246, 0.12);
-  --color-live: #22c55e;
-  --color-live-dim: rgba(34, 197, 94, 0.12);
-  --color-warn: #eab308;
+  --color-bg: #faf6f0;
+  --color-bg-elevated: #ffffff;
+  --color-bg-panel: #f4ede2;
+  --color-bg-hover: #efe6d8;
+  --color-border: #e7dcc9;
+  --color-border-hover: #d8c9ac;
+  --color-text: #241d14;
+  --color-text-secondary: #59503f;
+  --color-text-muted: #8a7d67;
+  --color-accent: #c2410c;
+  --color-accent-dim: rgba(194, 65, 12, 0.09);
+  --color-success: #5f7a3d;
+  --color-success-dim: rgba(95, 122, 61, 0.1);
 }
 
-/* ── Terminal theme override ── */
-[data-theme="terminal"] {
-  --color-bg: #07120d;
-  --color-bg-elevated: #0d1b15;
-  --color-bg-panel: #12231c;
-  --color-bg-hover: #183026;
-  --color-border: rgba(74, 222, 128, 0.2);
-  --color-border-hover: rgba(74, 222, 128, 0.35);
-  --color-text: #e8fff1;
-  --color-text-secondary: #b8dfc7;
-  --color-text-muted: #86b29a;
-  --color-accent: #22c55e;
-  --color-accent-dim: rgba(34, 197, 94, 0.1);
+/* ── Dark theme override ── */
+[data-theme="dark"] {
+  --color-bg: #18130c;
+  --color-bg-elevated: #201911;
+  --color-bg-panel: #251d13;
+  --color-bg-hover: #2b2216;
+  --color-border: #3a2f20;
+  --color-border-hover: #4d4029;
+  --color-text: #f3ece0;
+  --color-text-secondary: #cabfa8;
+  --color-text-muted: #8f8168;
+  --color-accent: #fb923c;
+  --color-accent-dim: rgba(251, 146, 60, 0.14);
+  --color-success: #8fae5c;
+  --color-success-dim: rgba(143, 174, 92, 0.14);
 }
 
 /* ── Tailwind theme referencing the CSS variables ── */
@@ -46,9 +47,8 @@
   --color-text-muted: var(--color-text-muted);
   --color-accent: var(--color-accent);
   --color-accent-dim: var(--color-accent-dim);
-  --color-live: var(--color-live);
-  --color-live-dim: var(--color-live-dim);
-  --color-warn: var(--color-warn);
+  --color-success: var(--color-success);
+  --color-success-dim: var(--color-success-dim);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -64,63 +64,38 @@ body {
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
   line-height: 1.6;
-  transition: background-color 0.4s ease, color 0.3s ease;
 }
 
 ::selection {
-  background: rgba(59, 130, 246, 0.2);
-  color: #fff;
-}
-[data-theme="terminal"] ::selection {
-  background: rgba(34, 197, 94, 0.2);
+  background: var(--color-accent-dim);
+  color: var(--color-accent);
 }
 
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--color-bg); }
-::-webkit-scrollbar-thumb { background: #27272a; border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: var(--color-border-hover); border-radius: 2px; }
 
-/* Dot grid background */
-.dot-grid {
-  background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-[data-theme="terminal"] .dot-grid {
-  background-image: radial-gradient(rgba(34,197,94,0.04) 1px, transparent 1px);
-}
-
-/* System panel styling */
+/* Card surface */
 .panel {
   background: var(--color-bg-elevated);
   border: 1px solid var(--color-border);
-  border-radius: 6px;
-  transition: background-color 0.3s, border-color 0.3s;
+  border-radius: 10px;
 }
 
 .panel-inner {
   background: var(--color-bg-panel);
   border: 1px solid var(--color-border);
-  border-radius: 4px;
-  transition: background-color 0.3s, border-color 0.3s;
+  border-radius: 8px;
 }
 
-/* Status pulse — purposeful, communicates real state */
-@keyframes pulse-live {
+/* Gentle pulse — reserved for a single genuine availability indicator, used sparingly */
+@keyframes pulse-soft {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+  50% { opacity: 0.45; }
 }
-.pulse-live { animation: pulse-live 2s ease-in-out infinite; }
-
-/* Cursor blink — for terminal interactions */
-@keyframes cursor-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-.animate-cursor-blink { animation: cursor-blink 1s step-end infinite; }
-
-/* Counter bar fill */
-@keyframes fill-bar { from { width: 0; } }
+.pulse-soft { animation: pulse-soft 2.4s ease-in-out infinite; }
 
 /* Scrollbar for horizontal strips */
 .scrollbar-thin::-webkit-scrollbar { height: 3px; }
 .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
-.scrollbar-thin::-webkit-scrollbar-thumb { background: #27272a; border-radius: 2px; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: var(--color-border-hover); border-radius: 2px; }

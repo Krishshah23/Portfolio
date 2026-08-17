@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SR from "./ui/ScrollReveal";
 
@@ -11,16 +11,17 @@ function MailIcon() { return <svg width={14} height={14} viewBox="0 0 24 24" fil
 
 const channels = [
   { icon: GithubIcon, label: "GitHub", handle: "@Krishshah23", href: "https://github.com/Krishshah23" },
-  { icon: LinkedinIcon, label: "LinkedIn", handle: "Krish Shah", href: "https://www.linkedin.com/in/krish-shah-7461b8325" },
+  { icon: LinkedinIcon, label: "LinkedIn", handle: "Krish Shah", href: "https://www.linkedin.com/in/kreesh" },
   { icon: InstagramIcon, label: "Instagram", handle: "@kreesh.me", href: "https://instagram.com/kreesh.me" },
   { icon: MailIcon, label: "Email", handle: "krish23076@gmail.com", href: "mailto:krish23076@gmail.com" },
 ];
 
 const currently = [
   { label: "Reading", value: "\"Designing Data-Intensive Applications\"" },
-  { label: "Building", value: "Crictalx 2.0 — scoring engine rewrite" },
-  { label: "Exploring", value: "How ML can predict match outcomes from historical data" },
+  { label: "Building", value: "PathPilot AI — security hardening, testing, architecture cleanup" },
+  { label: "Exploring", value: "Data Structures & Algorithms" },
   { label: "Thinking", value: "Why streak mechanics create stronger retention than rewards" },
+  { label: "Also", value: "Playing chess in whatever time is left over" },
   { label: "Location", value: "Ahmedabad, India · GMT+5:30" },
 ];
 
@@ -29,27 +30,6 @@ type Status = "idle" | "sending" | "sent" | "error";
 export default function Signal() {
   const [form, setForm] = useState({ name: "", email: "", msg: "" });
   const [status, setStatus] = useState<Status>("idle");
-  const [terminalDone, setTerminalDone] = useState(false);
-  const [terminalText, setTerminalText] = useState("");
-  const signoff = 'echo "thanks for scrolling"';
-
-  useEffect(() => {
-    // Start terminal animation after a delay when section loads
-    const timeout = setTimeout(() => {
-      let i = 0;
-      const id = setInterval(() => {
-        i++;
-        if (i <= signoff.length) {
-          setTerminalText(signoff.slice(0, i));
-        } else {
-          setTerminalDone(true);
-          clearInterval(id);
-        }
-      }, 50);
-      return () => clearInterval(id);
-    }, 500);
-    return () => clearTimeout(timeout);
-  }, []);
 
   const send = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,12 +63,12 @@ export default function Signal() {
   };
 
   return (
-    <section id="signal" className="pt-20 md:pt-28 pb-0">
+    <section id="signal" className="py-24 md:py-32">
       <div className="max-w-6xl mx-auto px-5 md:px-8">
         {/* ── Currently ── */}
         <SR>
           <div className="flex items-center gap-3 mb-10">
-            <span className="text-[11px] font-mono text-text-muted uppercase tracking-[0.15em]">
+            <span className="text-[12px] font-medium text-text-muted uppercase tracking-[0.1em]">
               Signal
             </span>
             <span className="h-px flex-1 bg-border" />
@@ -97,12 +77,12 @@ export default function Signal() {
 
         <SR delay={0.05}>
           <div className="mb-16">
-            <h2 className="text-[11px] font-mono text-accent uppercase tracking-wider mb-6">
+            <h2 className="text-[12px] font-medium text-accent uppercase tracking-wider mb-6">
               Currently
             </h2>
             <div className="space-y-3">
               {currently.map((item) => (
-                <div key={item.label} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 font-mono text-[13px]">
+                <div key={item.label} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 text-[14px]">
                   <span className="text-text-muted w-24 shrink-0">{item.label}</span>
                   <span className="text-text-secondary">{item.value}</span>
                 </div>
@@ -112,40 +92,40 @@ export default function Signal() {
         </SR>
 
         {/* ── Contact ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-4xl mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-4xl">
           <SR delay={0.08}>
             <div>
-              <h2 className="text-[clamp(1.3rem,2.5vw,1.75rem)] font-bold tracking-[-0.03em] text-white mb-2">
+              <h2 className="text-[clamp(1.3rem,2.5vw,1.75rem)] font-bold tracking-[-0.03em] text-text mb-2">
                 Say something
               </h2>
-              <p className="text-[12px] text-text-muted font-mono mb-5">
-                Project ideas, opportunities, or just systems talk.
+              <p className="text-[13px] text-text-muted mb-5">
+                Project ideas, opportunities, or just a chat about what you&apos;re building.
               </p>
               <form onSubmit={send} className="space-y-2.5">
                 <input
                   type="text" required placeholder="Name" value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-md bg-bg-elevated border border-border text-[12px] font-mono text-text placeholder:text-text-muted focus:outline-none focus:border-accent/30 transition-colors"
+                  className="w-full px-3.5 py-2.5 rounded-md bg-bg-elevated border border-border text-[14px] text-text placeholder:text-text-muted focus:outline-none focus:border-accent/40 transition-colors"
                 />
                 <input
                   type="email" required placeholder="Email" value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-md bg-bg-elevated border border-border text-[12px] font-mono text-text placeholder:text-text-muted focus:outline-none focus:border-accent/30 transition-colors"
+                  className="w-full px-3.5 py-2.5 rounded-md bg-bg-elevated border border-border text-[14px] text-text placeholder:text-text-muted focus:outline-none focus:border-accent/40 transition-colors"
                 />
                 <textarea
                   required rows={4} placeholder="Message" value={form.msg}
                   onChange={(e) => setForm({ ...form, msg: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-md bg-bg-elevated border border-border text-[12px] font-mono text-text placeholder:text-text-muted focus:outline-none focus:border-accent/30 transition-colors resize-none"
+                  className="w-full px-3.5 py-2.5 rounded-md bg-bg-elevated border border-border text-[14px] text-text placeholder:text-text-muted focus:outline-none focus:border-accent/40 transition-colors resize-none"
                 />
                 <button
                   type="submit"
                   disabled={status === "sending"}
-                  className="w-full py-2.5 rounded-md bg-accent text-white text-[12px] font-mono font-medium hover:bg-accent/85 transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full py-2.5 rounded-md bg-accent text-white text-[13px] font-medium hover:bg-accent/90 transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {status === "idle" && "send_message()"}
-                  {status === "sending" && "sending..."}
-                  {status === "sent" && "✓ message sent"}
-                  {status === "error" && "error — try again"}
+                  {status === "idle" && "Send message"}
+                  {status === "sending" && "Sending…"}
+                  {status === "sent" && "Message sent"}
+                  {status === "error" && "Error — try again"}
                 </button>
               </form>
 
@@ -155,9 +135,9 @@ export default function Signal() {
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
-                    className="mt-3 px-3 py-2 rounded-md bg-live-dim border border-live/20 text-[11px] font-mono text-live"
+                    className="mt-3 px-3 py-2 rounded-md bg-success-dim text-[13px] text-success"
                   >
-                    ✓ Message delivered — I&apos;ll get back to you soon.
+                    Message delivered — I&apos;ll get back to you soon.
                   </motion.div>
                 )}
                 {status === "error" && (
@@ -165,10 +145,10 @@ export default function Signal() {
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
-                    className="mt-3 px-3 py-2.5 rounded-md bg-red-500/10 border border-red-500/20 text-[11px] font-mono text-red-400"
+                    className="mt-3 px-3 py-2.5 rounded-md bg-red-500/10 text-[13px] text-red-600"
                   >
                     Something went wrong. Try{" "}
-                    <a href="mailto:krish23076@gmail.com" className="underline hover:text-red-300">
+                    <a href="mailto:krish23076@gmail.com" className="underline hover:text-red-500">
                       krish23076@gmail.com
                     </a>
                   </motion.div>
@@ -193,52 +173,19 @@ export default function Signal() {
                       <c.icon />
                     </span>
                     <div>
-                      <div className="text-[12px] font-mono text-text">{c.label}</div>
-                      <div className="text-[10px] font-mono text-text-muted">{c.handle}</div>
+                      <div className="text-[13px] text-text">{c.label}</div>
+                      <div className="text-[12px] text-text-muted">{c.handle}</div>
                     </div>
                   </div>
-                  <span className="text-[11px] font-mono text-text-muted group-hover:text-accent transition-colors">→</span>
+                  <span className="text-[13px] text-text-muted group-hover:text-accent transition-colors">→</span>
                 </a>
               ))}
-              <div className="pt-2 text-[11px] font-mono text-text-muted">
-                domain:{" "}
+              <div className="pt-2 text-[12px] text-text-muted">
                 <a href="https://kreesh.me" className="text-accent hover:underline">kreesh.me</a>
               </div>
             </div>
           </SR>
         </div>
-
-        {/* ── Terminal sign-off ── */}
-        <SR delay={0.15}>
-          <div className="border-t border-border py-6 font-mono text-[12px]">
-            <div className="flex items-center gap-0">
-              <span className="text-text-muted">krish@kreesh.me</span>
-              <span className="text-accent">:</span>
-              <span className="text-text-muted">~</span>
-              <span className="text-text-muted">$ </span>
-              <span className="text-text-secondary ml-1">{terminalText}</span>
-              {!terminalDone && (
-                <span className="inline-block w-[7px] h-[14px] bg-accent ml-0.5 animate-cursor-blink align-middle" />
-              )}
-            </div>
-            {terminalDone && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
-              >
-                <div className="text-text-secondary mt-1">thanks for scrolling</div>
-                <div className="flex items-center gap-0 mt-1">
-                  <span className="text-text-muted">krish@kreesh.me</span>
-                  <span className="text-accent">:</span>
-                  <span className="text-text-muted">~</span>
-                  <span className="text-text-muted">$ </span>
-                  <span className="inline-block w-[7px] h-[14px] bg-accent/60 ml-0.5 animate-cursor-blink align-middle" />
-                </div>
-              </motion.div>
-            )}
-          </div>
-        </SR>
       </div>
     </section>
   );

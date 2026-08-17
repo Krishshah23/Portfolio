@@ -5,21 +5,28 @@ import { Providers } from "./providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Krish Shah — Product Engineer",
+  metadataBase: new URL("https://kreesh.me"),
+  title: "Krish Shah — CS Student & Freelance Developer",
   description:
-    "Systems-focused product engineer building real internet products. Full-stack developer specializing in gamification, engagement systems, and interactive platforms.",
+    "Third-year Computer Science student building real products — PathPilot AI, Crictalx, BrainBrew — and freelancing for CS students on the side.",
   keywords: [
     "Krish Shah",
-    "product engineer",
+    "computer science student",
+    "freelance developer",
     "full stack developer",
-    "systems builder",
-    "gamification",
     "web developer",
   ],
   openGraph: {
-    title: "Krish Shah — Product Engineer",
-    description: "Building real internet products that people actually use.",
+    title: "Krish Shah — CS Student & Freelance Developer",
+    description: "Building real products, and freelancing for CS students along the way.",
+    url: "https://kreesh.me",
+    siteName: "Krish Shah",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Krish Shah — CS Student & Freelance Developer",
+    description: "Building real products, and freelancing for CS students along the way.",
   },
 };
 
@@ -29,7 +36,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var t=localStorage.getItem('portfolio-theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();",
+          }}
+        />
+      </head>
       <body>
         <Providers>{children}</Providers>
       </body>

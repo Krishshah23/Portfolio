@@ -1,368 +1,139 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect, useCallback } from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
-/* ── Animated counter ── */
-function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
-  const [val, setVal] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    let start = 0;
-    const step = Math.ceil(target / 40);
-    const id = setInterval(() => {
-      start += step;
-      if (start >= target) { setVal(target); clearInterval(id); }
-      else setVal(start);
-    }, 30);
-    return () => clearInterval(id);
-  }, [inView, target]);
-
-  return <span ref={ref}>{val.toLocaleString()}{suffix}</span>;
-}
-
-/* ── Deploy log entries ── */
-const deployLog = [
-  { time: "2m ago", text: "Path Score recompute pipeline stabilized", tag: "pathpilot" },
-  { time: "14m ago", text: "Roadmap task weight tuning deployed", tag: "pathpilot" },
-  { time: "1h ago", text: "Resume analyzer score parser refined", tag: "pathpilot" },
-  { time: "3h ago", text: "Live jobs cache refresh optimized", tag: "pathpilot" },
-  { time: "5h ago", text: "Interview coach prompt templates updated", tag: "pathpilot" },
-  { time: "8h ago", text: "Token refresh edge-case patched", tag: "pathpilot" },
-  { time: "12h ago", text: "Dashboard activity feed corrected", tag: "pathpilot" },
-  { time: "1d ago", text: "Public profile share view shipped", tag: "pathpilot" },
-];
-
-/* ── Typewriter hook ── */
-function useTypewriter(lines: typeof deployLog, visible: boolean) {
-  const [displayed, setDisplayed] = useState<{ time: string; text: string; tag: string; typed: string }[]>([]);
-  const [currentLine, setCurrentLine] = useState(0);
-  const [currentChar, setCurrentChar] = useState(0);
-  const [isTyping, setIsTyping] = useState(false);
-
-  useEffect(() => {
-    if (!visible) return;
-    // Start typing after a short delay
-    const startDelay = setTimeout(() => setIsTyping(true), 800);
-    return () => clearTimeout(startDelay);
-  }, [visible]);
-
-  useEffect(() => {
-    if (!isTyping || currentLine >= lines.length) return;
-
-    const line = lines[currentLine];
-    const fullText = `[${line.time}] ${line.text}`;
-
-    if (currentChar < fullText.length) {
-      // Type next character with variable speed
-      const speed = 20 + Math.random() * 40;
-      const id = setTimeout(() => {
-        setDisplayed(prev => {
-          const updated = [...prev];
-          if (updated.length <= currentLine) {
-            updated.push({ ...line, typed: fullText[0] });
-          } else {
-            updated[currentLine] = { ...line, typed: fullText.slice(0, currentChar + 1) };
-          }
-          return updated;
-        });
-        setCurrentChar(c => c + 1);
-      }, speed);
-      return () => clearTimeout(id);
-    } else {
-      // Line complete, pause then move to next
-      const id = setTimeout(() => {
-        setCurrentLine(l => l + 1);
-        setCurrentChar(0);
-      }, 600);
-      return () => clearTimeout(id);
-    }
-  }, [isTyping, currentLine, currentChar, lines]);
-
-  return { displayed, isComplete: currentLine >= lines.length };
-}
-
-/* ── System status ── */
 const systems = [
-  { name: "pathpilot.kreesh.me", status: "live" as const, version: "v1.0", uptime: "5d", href: "https://pathpilot.kreesh.me" },
-  { name: "crictalx.kreesh.me", status: "live" as const, version: "v2.4", uptime: "47d", href: "https://crictalx.kreesh.me" },
-  { name: "brainbrew.kreesh.me", status: "live" as const, version: "v1.2", uptime: "23d", href: "https://brainbrew.kreesh.me" },
-  { name: "spicegarden.kreesh.me", status: "deployed" as const, version: "v1.0", uptime: "—", href: "https://spicegarden.kreesh.me" },
+  { name: "pathpilot.kreesh.me", href: "https://pathpilot.kreesh.me" },
+  { name: "crictalx.kreesh.me", href: "https://crictalx.kreesh.me" },
+  { name: "brainbrew.kreesh.me", href: "https://brainbrew.kreesh.me" },
+  { name: "spicegarden.kreesh.me", href: "https://spicegarden.kreesh.me" },
 ];
-
-/* ── Blinking cursor ── */
-function Cursor() {
-  return <span className="inline-block w-[7px] h-[14px] bg-accent ml-0.5 animate-cursor-blink align-middle" />;
-}
 
 export default function Hero() {
-  const sectionRef = useRef(null);
-  const inView = useInView(sectionRef, { once: true });
-  const { displayed, isComplete } = useTypewriter(deployLog, inView);
-  const [terminalText, setTerminalText] = useState("");
-  const terminalFull = "currently shipping pathpilot v1.0";
-
-  // Terminal prompt typewriter at bottom
-  useEffect(() => {
-    if (!isComplete) return;
-    let i = 0;
-    const id = setInterval(() => {
-      i++;
-      if (i <= terminalFull.length) {
-        setTerminalText(terminalFull.slice(0, i));
-      } else {
-        clearInterval(id);
-      }
-    }, 50);
-    return () => clearInterval(id);
-  }, [isComplete]);
-
-  // Uptime counter
-  const [uptimeSeconds, setUptimeSeconds] = useState(0);
-  useEffect(() => {
-    const id = setInterval(() => setUptimeSeconds(s => s + 1), 1000);
-    return () => clearInterval(id);
-  }, []);
-  const formatUptime = useCallback((s: number) => {
-    const h = Math.floor(s / 3600);
-    const m = Math.floor((s % 3600) / 60);
-    const sec = s % 60;
-    return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
-  }, []);
-
   return (
-    <section ref={sectionRef} className="min-h-screen relative dot-grid flex flex-col">
-      {/* Subtle vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_42%,var(--color-bg)_100%)] pointer-events-none" />
-
-      <div className="relative z-10 max-w-6xl mx-auto px-5 md:px-8 w-full flex-1 flex flex-col justify-center pt-16 pb-8">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-12 lg:gap-16 items-start">
+    <section className="min-h-screen flex flex-col justify-center pt-24 pb-16">
+      <div className="max-w-6xl mx-auto px-5 md:px-8 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12 lg:gap-16 items-center">
           {/* ── LEFT: Identity ── */}
-          <div className="pt-4">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
+          <div>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex items-center gap-2 mb-6"
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-[13px] font-medium text-accent mb-5"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-live pulse-live" />
-              <span className="text-[10px] font-mono text-text-muted tracking-[0.15em] uppercase">
-                sys.status: online
-              </span>
-              <span className="text-[10px] font-mono text-text-muted/50 ml-1">
-                uptime {formatUptime(uptimeSeconds)}
-              </span>
-            </motion.div>
+              Computer Science Student · Freelance Developer
+            </motion.p>
 
             <motion.h1
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-[clamp(3.2rem,7vw,5.5rem)] font-black leading-[0.9] tracking-[-0.05em] text-white mb-5"
+              transition={{ duration: 0.6, delay: 0.18 }}
+              className="flex items-center gap-4 text-[clamp(2.75rem,7vw,4.75rem)] font-bold leading-[1.02] tracking-[-0.03em] text-text mb-7"
             >
-              Krish
-              <br />
-              Shah
+              <span
+                className="inline-block rounded-full overflow-hidden border border-border shrink-0"
+                style={{ width: "1.15em", height: "1.15em" }}
+              >
+                <Image
+                  src="/profile.webp"
+                  alt="Krish Shah"
+                  width={128}
+                  height={128}
+                  priority
+                  className="w-full h-full object-cover"
+                  style={{ objectPosition: "50% 20%" }}
+                />
+              </span>
+              Krish Shah
             </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.55 }}
-              className="text-[14px] text-text-secondary font-mono mb-3"
-            >
-              Product Engineer · Systems Builder
-            </motion.p>
-
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.6 }}
-              className="text-[11px] font-mono text-text-muted mb-6"
-            >
-              PathPilot AI · 120+ commits · 30+ day build
-            </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.65 }}
-              className="max-w-md mb-8"
+              transition={{ duration: 0.5, delay: 0.28 }}
+              className="max-w-xl mb-10"
             >
-              <p className="text-[14px] text-text-secondary leading-[1.7]">
-                Second-year CS student who learns by shipping real internet products.
-                I build systems people actually use — prediction platforms, gamified learning,
-                engagement engines. I obsess over{" "}
-                <span className="text-text">user behavior</span>,{" "}
-                <span className="text-text">product engagement</span>, and{" "}
-                <span className="text-text">system architecture</span>.
+              <p className="text-[17px] text-text-secondary leading-[1.7]">
+                I&apos;m a third-year CS student, though most of what I actually know came from
+                building outside of class rather than in it. Over the past year and a half I&apos;ve
+                shipped several full products on my own — a fantasy cricket platform, a gamified
+                study app, and most recently an AI career-readiness tool — while freelancing for
+                other CS students who needed real software built. I like sitting with a few
+                problems long enough to actually understand them: mostly{" "}
+                <span className="text-text font-medium">how people use a product</span>, and{" "}
+                <span className="text-text font-medium">how the system underneath holds up</span> once they do.
               </p>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              className="flex flex-wrap items-center gap-4 sm:gap-6"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="flex flex-wrap items-center gap-3"
             >
               <a
                 href="#work"
-                className="text-[12px] font-mono text-accent hover:text-accent/80 transition-colors flex items-center gap-1.5"
+                className="px-5 py-2.5 text-[13px] font-medium text-white bg-accent rounded-md hover:bg-accent/90 transition-colors"
               >
-                view systems <span className="text-text-muted">↓</span>
+                View my work
               </a>
               <a
                 href="#signal"
-                className="text-[12px] font-mono text-text-secondary hover:text-text transition-colors"
+                className="px-5 py-2.5 text-[13px] font-medium text-text border border-border rounded-md hover:border-border-hover hover:bg-bg-elevated transition-colors"
               >
-                open channel →
+                Get in touch
               </a>
               <a
                 href="/Krish_Shah_Resume.pdf"
                 download
-                className="px-2.5 py-1 text-[11px] font-mono text-text border border-border rounded hover:border-border-hover hover:bg-bg-elevated transition-colors"
+                className="px-5 py-2.5 text-[13px] font-medium text-text-secondary hover:text-text transition-colors"
               >
-                download resume
+                Download résumé ↓
               </a>
             </motion.div>
           </div>
 
-          {/* ── RIGHT: System Panel ── */}
+          {/* ── RIGHT: Live Systems ── */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 16 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
             className="hidden lg:block"
           >
-            <div className="panel p-0 overflow-hidden">
-              {/* Panel header */}
-              <div className="flex items-center justify-between px-3.5 py-2 border-b border-border">
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-live pulse-live" />
-                  <span className="text-[10px] font-mono text-text-muted uppercase tracking-wider">
-                    Live Systems
-                  </span>
-                </div>
-                <span className="text-[10px] font-mono text-text-muted">
-                  {systems.filter((s) => s.status === "live").length}/{systems.length} online
+            <div className="panel overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-border">
+                <span className="text-[12px] font-medium text-text-muted uppercase tracking-wider">
+                  Live Systems
                 </span>
+                <span className="text-[12px] text-text-muted">{systems.length}/{systems.length} online</span>
               </div>
-
-              {/* System list */}
-              <div className="p-3 space-y-1.5">
-                {systems.map((s, i) => (
-                  <motion.a
+              <div className="p-2">
+                {systems.map((s) => (
+                  <a
                     key={s.name}
                     href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    initial={{ opacity: 0, x: 8 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.8 + i * 0.1 }}
-                    className="flex items-center justify-between px-2.5 py-2 rounded panel-inner hover:border-border-hover transition-all group cursor-pointer"
+                    className="flex items-center justify-between px-3 py-3 rounded-md hover:bg-bg-hover transition-colors group"
                   >
-                    <div className="flex items-center gap-2 min-w-0">
-                      <span
-                        className={`w-1.5 h-1.5 rounded-full shrink-0 ${
-                          s.status === "live" ? "bg-live pulse-live" : "bg-text-muted"
-                        }`}
-                      />
-                      <span className="text-[11px] font-mono text-text truncate group-hover:text-accent transition-colors">{s.name}</span>
-                    </div>
-                    <div className="flex items-center gap-3 shrink-0 ml-2">
-                      {s.status === "live" && (
-                        <span className="text-[9px] font-mono text-text-muted">{s.uptime}</span>
-                      )}
-                      <span className="text-[10px] font-mono text-text-muted">{s.version}</span>
-                      <span className="text-[10px] text-text-muted group-hover:text-accent transition-colors">→</span>
-                    </div>
-                  </motion.a>
-                ))}
-              </div>
-
-              {/* Divider */}
-              <div className="border-t border-border" />
-
-              {/* Deploy log - typewriter */}
-              <div className="px-3.5 py-2 border-b border-border flex items-center justify-between">
-                <span className="text-[10px] font-mono text-text-muted uppercase tracking-wider">
-                  Deploy Log
-                </span>
-                {!isComplete && (
-                  <span className="text-[9px] font-mono text-live">streaming...</span>
-                )}
-              </div>
-              <div className="h-[180px] overflow-hidden relative">
-                <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-bg-elevated to-transparent z-10 pointer-events-none" />
-                <div className="p-3 space-y-0.5 font-mono">
-                  {displayed.map((entry, i) => (
-                    <div key={i} className="flex items-start gap-0 py-0.5 px-1">
-                      <span className="text-[10px] text-text-muted whitespace-pre">{`$ `}</span>
-                      <span className="text-[10px] text-text-secondary leading-tight">
-                        {entry.typed}
-                        {i === displayed.length - 1 && !isComplete && <Cursor />}
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <span className="w-1.5 h-1.5 rounded-full bg-success shrink-0" />
+                      <span className="text-[13px] text-text truncate group-hover:text-accent transition-colors">
+                        {s.name}
                       </span>
                     </div>
-                  ))}
-                  {displayed.length === 0 && (
-                    <div className="flex items-center gap-0 py-0.5 px-1">
-                      <span className="text-[10px] font-mono text-text-muted">$ </span>
-                      <Cursor />
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Metrics footer */}
-              <div className="border-t border-border px-3.5 py-2.5 grid grid-cols-3 gap-2">
-                <div>
-                  <div className="text-[10px] font-mono text-text-muted mb-0.5">Products</div>
-                  <div className="text-[15px] font-semibold text-text">
-                    <Counter target={4} />
-                  </div>
-                </div>
-                <div>
-                  <div className="text-[10px] font-mono text-text-muted mb-0.5">Users</div>
-                  <div className="text-[15px] font-semibold text-text">
-                    <Counter target={3100} suffix="+" />
-                  </div>
-                </div>
-                <div>
-                  <div className="text-[10px] font-mono text-text-muted mb-0.5">Features</div>
-                  <div className="text-[15px] font-semibold text-text">
-                    <Counter target={47} />
-                  </div>
-                </div>
+                    <span className="text-[13px] text-text-muted group-hover:text-accent transition-colors shrink-0 ml-2">
+                      →
+                    </span>
+                  </a>
+                ))}
               </div>
             </div>
           </motion.div>
         </div>
       </div>
-
-      {/* ── Bottom: Terminal Prompt ── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
-        className="border-t border-border"
-      >
-        <div className="max-w-6xl mx-auto px-5 md:px-8 py-3">
-          <div className="flex items-center gap-0 font-mono text-[12px]">
-            <span className="text-text-muted">krish@kreesh.me</span>
-            <span className="text-accent">:</span>
-            <span className="text-text-muted">~</span>
-            <span className="text-text-muted">$ </span>
-            <span className="text-text-secondary ml-1">{terminalText}</span>
-            {terminalText.length < terminalFull.length && <Cursor />}
-            {terminalText.length >= terminalFull.length && (
-              <span className="inline-block w-[7px] h-[14px] bg-accent/60 ml-0.5 animate-cursor-blink align-middle" />
-            )}
-          </div>
-        </div>
-      </motion.div>
     </section>
   );
 }

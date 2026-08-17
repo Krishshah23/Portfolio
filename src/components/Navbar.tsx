@@ -11,32 +11,6 @@ const links = [
   { label: "Signal", href: "#signal" },
 ];
 
-function LiveClock() {
-  const [time, setTime] = useState("");
-  useEffect(() => {
-    const tick = () => {
-      const now = new Date();
-      setTime(
-        now.toLocaleTimeString("en-IN", {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: false,
-          timeZone: "Asia/Kolkata",
-        })
-      );
-    };
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
-  return (
-    <span className="text-[10px] font-mono text-text-muted tabular-nums">
-      IST {time}
-    </span>
-  );
-}
-
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -54,12 +28,12 @@ export default function Navbar() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.2 }}
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-          scrolled ? "bg-bg/80 backdrop-blur-md border-b border-border" : ""
+          scrolled ? "bg-bg border-b border-border" : ""
         }`}
       >
-        <div className="max-w-6xl mx-auto px-5 md:px-8 flex items-center justify-between h-12">
-          <a href="#" className="font-mono text-[13px] text-text tracking-tight">
-            krish<span className="text-accent">.</span>shah
+        <div className="max-w-6xl mx-auto px-5 md:px-8 flex items-center justify-between h-14">
+          <a href="#" className="text-[15px] font-semibold text-text tracking-tight">
+            Krish Shah
           </a>
 
           <nav className="hidden md:flex items-center gap-1">
@@ -67,7 +41,7 @@ export default function Navbar() {
               <a
                 key={l.label}
                 href={l.href}
-                className="px-3 py-1.5 text-[12px] text-text-secondary hover:text-text transition-colors font-mono"
+                className="px-3 py-1.5 text-[13px] text-text-secondary hover:text-text transition-colors"
               >
                 {l.label}
               </a>
@@ -75,27 +49,21 @@ export default function Navbar() {
             <a
               href="/Krish_Shah_Resume.pdf"
               download
-              className="ml-2 px-3 py-1.5 text-[11px] font-mono text-accent border border-accent/30 rounded hover:bg-accent-dim transition-colors"
+              className="ml-3 px-3.5 py-1.5 text-[12px] font-medium text-white bg-accent rounded-md hover:bg-accent/90 transition-colors"
             >
-              download resume
+              Résumé
             </a>
-            <span className="mx-2 h-3 w-px bg-border" />
-            <LiveClock />
-            <span className="mx-2 h-3 w-px bg-border" />
+            <span className="mx-2 h-4 w-px bg-border" />
             <ThemeSwitch />
-            <span className="ml-2 flex items-center gap-1.5 px-2.5 py-1 rounded text-[11px] font-mono text-live bg-live-dim border border-live/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-live pulse-live" />
-              building
-            </span>
           </nav>
 
           <div className="flex md:hidden items-center gap-2">
             <ThemeSwitch />
             <button
               onClick={() => setOpen(!open)}
-              className="p-1.5 text-text-secondary font-mono text-[12px] cursor-pointer"
+              className="p-1.5 text-text-secondary text-[13px] cursor-pointer"
             >
-              {open ? "[close]" : "[menu]"}
+              {open ? "Close" : "Menu"}
             </button>
           </div>
         </div>
@@ -107,7 +75,7 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-bg/98 flex flex-col items-center justify-center gap-6"
+            className="fixed inset-0 z-40 bg-bg flex flex-col items-center justify-center gap-6"
           >
             {links.map((l, i) => (
               <motion.a
@@ -117,7 +85,7 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 + 0.1 }}
-                className="text-lg font-mono text-text"
+                className="text-lg text-text"
               >
                 {l.label}
               </motion.a>
@@ -129,13 +97,10 @@ export default function Navbar() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35 }}
-              className="mt-2 px-4 py-2 text-[12px] font-mono text-accent border border-accent/30 rounded"
+              className="mt-2 px-5 py-2.5 text-[13px] font-medium text-white bg-accent rounded-md"
             >
-              download resume
+              Download Résumé
             </motion.a>
-            <div className="mt-4">
-              <LiveClock />
-            </div>
           </motion.div>
         )}
       </AnimatePresence>

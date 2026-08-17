@@ -1,7 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import CrictalxShowcase from "@/components/CrictalxShowcase";
+import PathPilotShowcase from "@/components/PathPilotShowcase";
 import ProjectsSection from "@/components/ProjectsSection";
+import FreelanceExperience from "@/components/FreelanceExperience";
 import Observations from "@/components/Observations";
 import EngineeringDNA from "@/components/EngineeringDNA";
 import Signal from "@/components/Signal";
@@ -13,7 +14,8 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <CrictalxShowcase />
+        <FreelanceExperience />
+        <PathPilotShowcase />
         <ProjectsSection />
         <Observations />
         <EngineeringDNA />
